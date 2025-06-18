@@ -86,5 +86,19 @@ def delete_file(filename: str) -> str:
     os.remove(filepath)
     return f"File '{filename}.txt' has been deleted."
 
+@mcp.tool()
+def list_files() -> List[str]:
+    """
+    List all .txt files in the text directory.
+    
+    Returns:
+        A list of filenames (without extension).
+    """
+    files = []
+    for fname in os.listdir(TEXT_DIR):
+        if fname.endswith(".txt"):
+            files.append(os.path.splitext(fname)[0])  # remove .txt
+    return files
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
